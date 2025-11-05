@@ -12,6 +12,7 @@ jobs:
       DEVICE: cpu
       MAX_INPUT_TOKENS: "512"
       HF_HOME: ${{ github.workspace }}/.cache/huggingface  # cache models
+      PYTHONPATH: ${{ github.workspace }} 
 
     steps:
       - name: Checkout
