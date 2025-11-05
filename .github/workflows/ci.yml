@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      MODEL_NAME: sshleifer/tiny-bart
+      DEVICE: cpu
+      MAX_INPUT_TOKENS: "512"
+      HF_HOME: ${{ github.workspace }}/.cache/huggingface  # cache models
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: pip-${{ runner.os }}-${{ hashFiles('**/requirements.txt', 'dev-requirements.txt') }}
+          restore-keys: |
+            pip-${{ runner.os }}-
+
+      - name: Cache HF models
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.HF_HOME }}
+          key: hf-${{ runner.os }}-${{ env.MODEL_NAME }}
+          restore-keys: |
+            hf-${{ runner.os }}-
+
+      - name: Install app deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/nlp/summarizer/requirements.txt
+
+      - name: Install dev deps
+        run: |
+          pip install -r dev-requirements.txt
+
+      - name: Run tests
+        run: |
+          pytest -q
