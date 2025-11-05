@@ -8,7 +8,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     env:
-      MODEL_NAME: sshleifer/tiny-distilbart-cnn-6-6
+      MODEL_NAME: hf-internal-testing/tiny-random-t5
       DEVICE: cpu
       MAX_INPUT_TOKENS: "512"
       HF_HOME: ${{ github.workspace }}/.cache/huggingface  # cache models
