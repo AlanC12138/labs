@@ -4,7 +4,7 @@ import importlib
 from fastapi.testclient import TestClient
 
 # use a tiny model to avoid large downloads in CI/local tests
-os.environ.setdefault("MODEL_NAME", "sshleifer/tiny-distilbart-cnn-6-6")
+os.environ.setdefault("MODEL_NAME", "hf-internal-testing/tiny-random-t5")
 os.environ.setdefault("DEVICE", "cpu")
 os.environ.setdefault("MAX_INPUT_TOKENS", "512")
 
