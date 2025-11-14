@@ -18,7 +18,7 @@ A lightweight end-to-end text-summarization service built with **FastAPI**, **Hu
 ---
 
 ## Project Structure
-
+```text
 src/
 └── nlp/
     └── summarizer/
